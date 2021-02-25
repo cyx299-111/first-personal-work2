@@ -1,10 +1,23 @@
-import io
 import jieba
 import json
 
-txt = io.open("comments.txt", "r", encoding='utf-8').read()
+txt = open("comments.txt", "r", encoding='utf-8').read()
 words  = jieba.lcut(txt)
 
+dataDict = {}
+countList = []
+
+# 创建停用词列表
+stopwords = [line.strip() for line in open('stop_words.txt', encoding='UTF-8').readlines()]
+
+outlist = []
+for word in words:
+    if word in stopwords:
+        continue
+    else:
+        outlist.append(word)
+
+# 统计词语出现次数
 counts = {}
 
 for word in words:
